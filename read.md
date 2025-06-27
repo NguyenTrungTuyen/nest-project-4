@@ -11,3 +11,14 @@
 
 4. .env
 + npm i --save @nestjs/config
+
+5. validator
++ npm i --save class-validator class-transformer
+
+6. test api ui
++ npm install --save @nestjs/swagger swagger-ui-express
+
+7. pagination:
++ npm i api-query-params
+https://www.npmjs.com/package/api-query-params
+

@@ -11,6 +11,11 @@ import { BookTypeModule } from './modules/book-type/book-type.module';
 
 @Module({
   imports: [
+    UsersModule,
+    AuthModule,
+    BookModule,
+    BookTypeModule, 
+    
     ConfigModule.forRoot({isGlobal: true}),
     
     MongooseModule.forRootAsync({
@@ -20,11 +25,7 @@ import { BookTypeModule } from './modules/book-type/book-type.module';
       }),
       inject: [ConfigService],
     }),
-    
-    UsersModule,
-    AuthModule,
-    BookModule,
-    BookTypeModule, 
+        
 
   ],
   controllers: [AppController],
