@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../modules/users/users.service';
-import { comparePasswordHelper } from 'src/hash pass/utils';
+import { comparePasswordHelper } from 'src/common/untils/utils';
 import { access } from 'fs';
 import { JwtService } from '@nestjs/jwt';
 

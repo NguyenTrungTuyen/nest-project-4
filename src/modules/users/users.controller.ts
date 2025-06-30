@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Param, Delete, Query, Put, UseInterceptors
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiConsumes, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
 import { FilterDto } from './dto/filter.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
@@ -110,6 +110,8 @@ export class UsersController {
   //   return this.usersService.update(+id, updateUserDto);
   // }
 
+
+  @ApiBearerAuth() 
   @Put()
   @ApiOperation({ summary: 'Update user informations ' })
   @ApiResponse({ status: 200, description: 'Câp nhật thành công' })

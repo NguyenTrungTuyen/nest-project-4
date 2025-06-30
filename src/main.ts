@@ -21,7 +21,7 @@ async function bootstrap() {
   .setTitle('API tài liệu')            // Tiêu đề
   .setDescription('Tài liệu API cho dự án NestJS') // Mô tả
   .setVersion('1.0')                   // Version
-  // .addBearerAuth()   
+  .addBearerAuth()   
   .addTag("Authentication", "Đăng nhập, đăng ký")            
   .build();
 

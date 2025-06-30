@@ -1,11 +1,11 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './Schemas/user.schema';
 import { hash } from 'crypto';
-import { hashPasswordHelper } from 'src/hash pass/utils';
+import { hashPasswordHelper } from 'src/common/untils/utils';
 import aqp from 'api-query-params';
 import { FilterDto } from './dto/filter.dto';
 import mongoose from 'mongoose';
@@ -121,8 +121,14 @@ async findAll(filterDto: FilterDto) {
       const updateData = Object.fromEntries(
         Object.entries(rest).filter(([_, v]) => v !== undefined && v !== null)
       );
+      const result =  await this.userModel.updateOne({ _id }, updateData);
+      
+      if (result.matchedCount === 0) {
+        throw new NotFoundException(`User with ID ${_id} not found`);
+      }
       console.log("Updated!");
-      return await this.userModel.updateOne({ _id }, updateData);
+      return ('Update successful!');
+      
 
     // return await this.userModel.updateOne(
     //   {_id: updateUserDto._id}, {...updateUserDto}
