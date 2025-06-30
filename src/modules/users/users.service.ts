@@ -77,16 +77,28 @@ async findAll(filterDto: FilterDto) {
   delete filter.current;
   delete filter.pageSize;
 
-  const totalItems = await this.userModel.countDocuments(filter);
-  const totalPages = Math.ceil(totalItems / pageSize);
+  // const totalItems = await this.userModel.countDocuments(filter); // 1s
   const skip = (current - 1) * pageSize;
+  
+  // const results = await this.userModel
+  //   .find(filter)
+  //   .limit(pageSize)
+  //   .skip(skip)
+  //   .select('-password')
+  //   .sort(sort as any); //2s
 
-  const results = await this.userModel
+    const [results, totalItems] = await Promise.all([
+      
+    this.userModel
     .find(filter)
     .limit(pageSize)
     .skip(skip)
     .select('-password')
-    .sort(sort as any);
+    .sort(sort as any),
+
+    this.userModel.countDocuments(filter)
+  ])
+  const totalPages = Math.ceil(totalItems / pageSize);
 
   return { results, totalPages };
 }
