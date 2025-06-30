@@ -4,6 +4,7 @@ import { UsersController } from './users.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './Schemas/user.schema';
 
+
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])
@@ -11,5 +12,6 @@ import { User, UserSchema } from './Schemas/user.schema';
   controllers: [UsersController],
   providers: [UsersService],
   exports: [UsersService],// su dung cho model khac
+ 
 })
 export class UsersModule {}

@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsEmail, MinLength, IsPhoneNumber } from "class-validator";
+import { IsNotEmpty, IsEmail, MinLength, IsPhoneNumber, IsOptional } from "class-validator";
 
 export class CreateUserDto {
   @ApiProperty({ example: 'Nguyễn Văn A' })
@@ -24,7 +24,11 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'Địa chỉ không được để trống' })
   address: string;
 
-  @ApiProperty({ example: 'avatar.jpg' })
-  @IsNotEmpty({ message: 'Ảnh không được để trống' })
-  image: string;
+  @ApiProperty({ 
+    example: 'avatar.jpg' ,
+    format: "binary",
+    description: "File ảnh avatar của user",
+  })
+  @IsOptional()
+  image?: string;
 }

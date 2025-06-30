@@ -6,23 +6,23 @@ export type UserDocument = HydratedDocument<User>;
 
 @Schema({ timestamps: true})
 export class User {
-  @Prop()
+  @Prop({ required: true })
   name: string;
 
-  @Prop()
+  @Prop({ required: true, unique: true })
   email: string;
 
-  @Prop()
+  @Prop({ required: true })
   password: string;
 
-  @Prop()
+  @Prop({ required: true })
   phone: string;
 
-  @Prop()
+  @Prop({ required: true })
   address: string;
 
-  @Prop()
-  image: string;
+  @Prop({ default: null })
+  image: string; // Lưu đường dẫn đến file ảnh
 
   @Prop({default: 'USER'})
   role: string;

@@ -8,6 +8,7 @@ import { UsersModule } from './modules/users/users.module';
 import { BookModule } from './modules/book/book.module';
 import { BookTypeModule } from './modules/book-type/book-type.module';
 import { AuthModule } from './auth/auth.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -15,6 +16,8 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
     BookModule,
     BookTypeModule, 
+    MulterModule.register({dest: './uploads'}), // dung de luu file
+
     
     ConfigModule.forRoot({isGlobal: true}),
     
