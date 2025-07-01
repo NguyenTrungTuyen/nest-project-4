@@ -9,6 +9,10 @@ import { hashPasswordHelper } from 'src/common/untils/utils';
 import aqp from 'api-query-params';
 import { FilterDto } from './dto/filter.dto';
 import mongoose from 'mongoose';
+import { CreateAuthDto } from 'src/auth/dto/create-auth.dto';
+import dayjs from 'dayjs';
+import { v4 as uuidv4 } from 'uuid';
+
 
 @Injectable()
 export class UsersService {
@@ -145,4 +149,32 @@ async findAll(filterDto: FilterDto) {
     }
    
   }
+
+  async handleRegister(registerDto: CreateAuthDto) {
+    const {name, email, password} = registerDto;
+    // check mail
+    const isExit = await this.isEmailExit(email);
+    if (isExit === true){
+      throw new BadRequestException(`Email exit: ${email}. Please use another email!`);
+    }
+    //hash pword
+    const hashPassword = await hashPasswordHelper(password);
+    const user = await this.userModel.create({
+      name, email, password: hashPassword, 
+      isActive: false, // mặc định là false
+      codeId: uuidv4(),
+      codeExpired: dayjs().add(1, 'minutes'), // hết hạn sau 1p
+
+    })
+
+    //thong báo đăng ký thành công
+    console.log("Đăng ký thành công!");
+    return user._id;
+
+    //send email
+
+
+  }
 }
+
+

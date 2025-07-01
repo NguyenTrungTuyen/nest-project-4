@@ -8,15 +8,17 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname, join } from 'path';
 import { unlinkSync } from 'fs';
+import { Public } from 'src/decorator/customize';
 
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
+  
   @Post()
-
-   @UseInterceptors(
+  // @Public()// public route, ko cần đăng nhập, giống như @UseGuards(JwtAuthGuard) nhưng không cần đăng nhập
+  
+  @UseInterceptors(
     FileInterceptor('image', {
        limits: {
         fileSize: 2 * 1024 * 1024, // giới hạn 2MB
