@@ -10,13 +10,13 @@ import { extname, join } from 'path';
 import { unlinkSync } from 'fs';
 import { Public } from 'src/decorator/customize';
 
-@ApiTags('Users')
+@ApiTags("Users")
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   
   @Post()
-  // @Public()// public route, ko cần đăng nhập, giống như @UseGuards(JwtAuthGuard) nhưng không cần đăng nhập
+  @Public()// public route, ko cần đăng nhập, giống như @UseGuards(JwtAuthGuard) nhưng không cần đăng nhập
   
   @UseInterceptors(
     FileInterceptor('image', {
@@ -97,6 +97,7 @@ export class UsersController {
   // }
 
   @Get()
+  @Public()
   @ApiOperation({ summary: 'User list' })
   async findAll(@Query() filterDto: FilterDto) {
     return this.usersService.findAll(filterDto);

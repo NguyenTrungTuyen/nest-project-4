@@ -21,6 +21,7 @@ export class AuthController {
   ) { }
 
   @Post('login')// ko dung local strategy
+  @Public() // public route, ko cần đăng nhập
   @ApiOperation({ summary: 'Login' })
   @ApiConsumes('application/x-www-form-urlencoded')
    @ApiBody({

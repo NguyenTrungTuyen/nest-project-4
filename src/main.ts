@@ -22,7 +22,6 @@ async function bootstrap() {
   .setDescription('Tài liệu API cho dự án NestJS') // Mô tả
   .setVersion('1.0')                   // Version
   .addBearerAuth()   
-  .addTag("Authentication", "Đăng nhập, đăng ký")            
   .build();
 
   const document = SwaggerModule.createDocument(app, config);
